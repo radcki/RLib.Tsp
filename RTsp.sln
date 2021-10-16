@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTsp.ConsoleApp", "RTsp.ConsoleApp\RTsp.ConsoleApp.csproj", "{313272DC-6FFC-4F01-B03C-41345351DDB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RTsp.Sample", "RTsp.Sample\RTsp.Sample.csproj", "{313272DC-6FFC-4F01-B03C-41345351DDB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTsp.Application", "RTsp.Application\RTsp.Application.csproj", "{F585C0F4-C816-466D-B1F0-81A23A232213}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RTsp.Application", "RTsp.Application\RTsp.Application.csproj", "{F585C0F4-C816-466D-B1F0-81A23A232213}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RTsp.UnitTests", "RTsp.UnitTests\RTsp.UnitTests.csproj", "{6A8168BA-6B13-4E61-954F-87ACF764AF5E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{F585C0F4-C816-466D-B1F0-81A23A232213}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F585C0F4-C816-466D-B1F0-81A23A232213}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F585C0F4-C816-466D-B1F0-81A23A232213}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A8168BA-6B13-4E61-954F-87ACF764AF5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A8168BA-6B13-4E61-954F-87ACF764AF5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A8168BA-6B13-4E61-954F-87ACF764AF5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A8168BA-6B13-4E61-954F-87ACF764AF5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

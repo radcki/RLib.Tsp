@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Google.OrTools" Version="9.1.9490" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\RTsp.Application\RTsp.Application.csproj" />
   </ItemGroup>
 
