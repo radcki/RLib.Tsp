@@ -264,7 +264,7 @@ namespace RTsp.Application
         }
 
 
-        public (string[], int[]) FindSolution(int maxIterations)
+        public (string[], int[]) FindSolution()
         {
             var solution = GenerateInitialSolution();
             var solutionCost = GetSolutionCost(solution);
@@ -278,6 +278,7 @@ namespace RTsp.Application
 
             var localSolution = new int[solution.Length];
             var localSolutionCost = solutionCost;
+            var mutationCount = 0;
             Array.Copy(solution, 0, localSolution, 0, solution.Length);
             do
             {
@@ -319,13 +320,14 @@ namespace RTsp.Application
                         solutionCost = localSolutionCost;
                     }
                 }
-                else if (Configuration.EnableSolutionMutation)
+                else if (Configuration.EnableSolutionMutation && mutationCount < Configuration.MaxMutations)
                 {
                     var swapI = rnd.Next(iStartIndex, jMaxIndex - 2);
                     var swapJ = rnd.Next(swapI, jMaxIndex);
                     localSolutionCost += GetSwapCostChange(localSolution, swapI, swapJ);
                     SolverTools.ApplyNodeSwap(localSolution, swapI, swapJ);
-
+                    
+                    mutationCount++;
                     rndSeed++;
                     rnd = new Random(rndSeed);
                 }
@@ -334,7 +336,7 @@ namespace RTsp.Application
                     break;
                 }
             }
-            while (iteration < maxIterations);
+            while (iteration < Configuration.MaxIterations);
 
             return (solution.Select(x => _nodeIds[x]).ToArray(), solution);
         }
@@ -346,6 +348,9 @@ namespace RTsp.Application
             /// Make random node swap when no improvement is found in iteration to possibly escape local minimum.
             /// </summary>
             public bool EnableSolutionMutation { get; set; } = false;
+
+            public int MaxIterations { get; set; } = 5000;
+            public int MaxMutations { get; set; } = 100;
         }
 
         public enum eFirstSolutionStrategy
