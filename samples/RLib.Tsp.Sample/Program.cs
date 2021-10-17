@@ -25,21 +25,21 @@ namespace RLib.Tsp.Sample
 
             var sw = Stopwatch.StartNew();
             var solver = new Solver((startIndex, endIndex) => costMatrix[startIndex, endIndex],
-                                    nodeIds,
+                                    nodeIds.Length,
                                     new Solver.SolverConfiguration()
                                     {
                                         EnableSolutionMutation = true,
                                         FirstSolutionStrategy = eFirstSolutionStrategy.ConnectCheapestArcs
                                     });
-            solver.SetStartNode(nodeIds[0]);
-            solver.SetEndNode(nodeIds[^1]);
+            solver.SetStartNode(0);
+            solver.SetEndNode(nodeIds.Length-1);
 
-            var (solution, solutionIndexes) = solver.FindSolution();
+            var solutionIndexes = solver.FindSolution();
             sw.Stop();
             var solutionCost = calculateSolutionCost(solutionIndexes);
 
             Console.WriteLine("RTsp Solution:");
-            Console.WriteLine(string.Join("->", solution));
+            Console.WriteLine(string.Join("->", solutionIndexes.Select(x=>nodeIds[x])));
             Console.WriteLine("-------");
             Console.WriteLine($"RTsp Cost: {solutionCost}, time: {sw.Elapsed.TotalMilliseconds}ms");
             Console.WriteLine("");
