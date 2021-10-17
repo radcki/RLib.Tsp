@@ -6,17 +6,17 @@ namespace RLib.Tsp
 {
     public class Solver
     {
-        public Solver(Func<int, int, float> getArcCost, string[] nodeIds)
+        public Solver(Func<int, int, float> getArcCost, int nodeCount)
         {
             GetArcCost = getArcCost;
-            _nodeIds = nodeIds;
+            _nodeCount = nodeCount;
             Configuration = new SolverConfiguration();
         }
 
-        public Solver(Func<int, int, float> getArcCost, string[] nodeIds, SolverConfiguration configuration)
+        public Solver(Func<int, int, float> getArcCost, int nodeCount, SolverConfiguration configuration)
         {
             GetArcCost = getArcCost;
-            _nodeIds = nodeIds;
+            _nodeCount = nodeCount;
             Configuration = configuration;
         }
 
@@ -25,7 +25,7 @@ namespace RLib.Tsp
         private Func<int, int, float> GetArcCost { get; set; }
         private int? _startNodeIndex;
         private int? _endNodeIndex;
-        private readonly string[] _nodeIds;
+        private readonly int _nodeCount;
         public SolverConfiguration Configuration { get; set; }
 
         private float GetSolutionCost(int[] solution)
@@ -44,14 +44,22 @@ namespace RLib.Tsp
             return cost;
         }
 
-        public void SetStartNode(string nodeId)
+        public void SetStartNode(int nodeIndex)
         {
-            _startNodeIndex = Array.IndexOf(_nodeIds, nodeId);
+            if (nodeIndex < 0 || nodeIndex > _nodeCount - 1)
+            {
+                throw new ArgumentException($"Start node index must be in range between 0 and {_nodeCount-1}");
+            }
+            _startNodeIndex = nodeIndex;
         }
 
-        public void SetEndNode(string nodeId)
+        public void SetEndNode(int nodeIndex)
         {
-            _endNodeIndex = Array.IndexOf(_nodeIds, nodeId);
+            if (nodeIndex < 0 || nodeIndex > _nodeCount - 1)
+            {
+                throw new ArgumentException($"End node index must be in range between 0 and {_nodeCount - 1}");
+            }
+            _endNodeIndex = nodeIndex;
         }
 
         public void UseFullSolutionCostValidation(Func<int[], float> getSolutionCost)
@@ -64,9 +72,9 @@ namespace RLib.Tsp
         {
             switch (Configuration.FirstSolutionStrategy)
             {
-                case eFirstSolutionStrategy.Random: return new InitialSolutionGenerator.RandomOrder(_nodeIds.Length, _startNodeIndex, _endNodeIndex).Generate();
-                case eFirstSolutionStrategy.NearestNeighbor: return new InitialSolutionGenerator.NearestNeighbor(_nodeIds.Length, _startNodeIndex, _endNodeIndex).Generate(GetArcCost);
-                case eFirstSolutionStrategy.ConnectCheapestArcs: return new InitialSolutionGenerator.GlobalCheapestArc(_nodeIds.Length, _startNodeIndex, _endNodeIndex).Generate(GetArcCost);
+                case eFirstSolutionStrategy.Random: return new InitialSolutionGenerator.RandomOrder(_nodeCount, _startNodeIndex, _endNodeIndex).Generate();
+                case eFirstSolutionStrategy.NearestNeighbor: return new InitialSolutionGenerator.NearestNeighbor(_nodeCount, _startNodeIndex, _endNodeIndex).Generate(GetArcCost);
+                case eFirstSolutionStrategy.ConnectCheapestArcs: return new InitialSolutionGenerator.GlobalCheapestArc(_nodeCount, _startNodeIndex, _endNodeIndex).Generate(GetArcCost);
 
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -83,7 +91,7 @@ namespace RLib.Tsp
         }
 
 
-        public (string[], int[]) FindSolution()
+        public int[] FindSolution()
         {
             var solution = GenerateInitialSolution();
             var solutionCost = GetSolutionCost(solution);
@@ -159,10 +167,10 @@ namespace RLib.Tsp
             }
             while (iteration < Configuration.MaxIterations);
 
-            return (solution.Select(x => _nodeIds[x]).ToArray(), solution);
+            return solution;
         }
 
-
+        
         public class SolverConfiguration
         {
             public eFirstSolutionStrategy FirstSolutionStrategy { get; set; } = eFirstSolutionStrategy.NearestNeighbor;
@@ -171,7 +179,7 @@ namespace RLib.Tsp
             /// <summary>
             /// Make random node swap when no improvement is found in iteration to possibly escape local minimum.
             /// </summary>
-            public bool EnableSolutionMutation { get; set; } = false;
+            public bool EnableSolutionMutation { get; set; } = true;
 
             /// <summary>
             /// Mutation counter is reset if better solution was found.

@@ -12,31 +12,32 @@ namespace RLib.Tsp.UnitTests
         public void Solution_ShouldContainAllPoints()
         {
             //Arrange
-            var solver = new Solver((startIndex, endIndex) => TestData.CostMatrix[startIndex, endIndex], 
-                                    TestData.CityNames);
+            var solver = new Solver((startIndex, endIndex) => TestData.CostMatrix[startIndex, endIndex],
+                                    TestData.CityNames.Length);
 
             //Act
-            var (cities, indexes) = solver.FindSolution();
+            var indexes = solver.FindSolution();
 
             //Assert
-            cities.Distinct().Count().Should().Be(TestData.CityNames.Length);
+            indexes.Distinct().Count().Should().Be(TestData.CityNames.Length);
         }
-        [Fact]
 
+        [Fact]
         public void Solution_ShouldContainAllPoints_2()
         {
             //Arrange
             var solver = new Solver((startIndex, endIndex) => TestData.CostMatrix[startIndex, endIndex],
-                                    TestData.CityNames, new Solver.SolverConfiguration()
-                                                        {
-                                                            FirstSolutionStrategy = eFirstSolutionStrategy.ConnectCheapestArcs
-                                                        });
+                                    TestData.CityNames.Length,
+                                    new Solver.SolverConfiguration()
+                                    {
+                                        FirstSolutionStrategy = eFirstSolutionStrategy.ConnectCheapestArcs
+                                    });
 
             //Act
-            var (cities, indexes) = solver.FindSolution();
+            var indexes = solver.FindSolution();
 
             //Assert
-            cities.Distinct().Count().Should().Be(TestData.CityNames.Length);
+            indexes.Distinct().Count().Should().Be(TestData.CityNames.Length);
         }
 
 
@@ -45,15 +46,14 @@ namespace RLib.Tsp.UnitTests
         {
             //Arrange
             var solver = new Solver((startIndex, endIndex) => TestData.CostMatrix[startIndex, endIndex],
-                                    TestData.CityNames);
+                                    TestData.CityNames.Length);
 
             //Act
-            var (cities, indexes) = solver.FindSolution();
+            var indexes = solver.FindSolution();
 
             //Assert
-            cities.Distinct().Count().Should().Be(cities.Length);
+            indexes.Distinct().Count().Should().Be(indexes.Length);
         }
-
 
 
         [Fact]
@@ -62,16 +62,16 @@ namespace RLib.Tsp.UnitTests
             //Arrange
             var firstPointIndex = 7;
             var solver = new Solver((startIndex, endIndex) => TestData.CostMatrix[startIndex, endIndex],
-                                    TestData.CityNames);
-            solver.SetStartNode(TestData.CityNames[firstPointIndex]);
+                                    TestData.CityNames.Length);
+            solver.SetStartNode(firstPointIndex);
 
             //Act
-            var (cities, indexes) = solver.FindSolution();
+            var indexes = solver.FindSolution();
 
             //Assert
-            cities[0].Should().Be(TestData.CityNames[firstPointIndex]);
-            cities.Distinct().Count().Should().Be(cities.Length);
-            cities.Distinct().Count().Should().Be(TestData.CityNames.Length);
+            indexes[0].Should().Be(firstPointIndex);
+            indexes.Distinct().Count().Should().Be(indexes.Length);
+            indexes.Distinct().Count().Should().Be(TestData.CityNames.Length);
         }
 
         [Fact]
@@ -80,17 +80,17 @@ namespace RLib.Tsp.UnitTests
             //Arrange
             var lastPointIndex = 7;
             var solver = new Solver((startIndex, endIndex) => TestData.CostMatrix[startIndex, endIndex],
-                                    TestData.CityNames,
+                                    TestData.CityNames.Length,
                                     new Solver.SolverConfiguration());
-            solver.SetEndNode(TestData.CityNames[lastPointIndex]);
+            solver.SetEndNode(lastPointIndex);
 
             //Act
-            var (cities, indexes) = solver.FindSolution();
+            var indexes = solver.FindSolution();
 
             //Assert
-            cities[^1].Should().Be(TestData.CityNames[lastPointIndex]);
-            cities.Distinct().Count().Should().Be(cities.Length);
-            cities.Distinct().Count().Should().Be(TestData.CityNames.Length);
+            indexes[^1].Should().Be(lastPointIndex);
+            indexes.Distinct().Count().Should().Be(indexes.Length);
+            indexes.Distinct().Count().Should().Be(TestData.CityNames.Length);
         }
 
         [Fact]
@@ -100,21 +100,19 @@ namespace RLib.Tsp.UnitTests
             var lastPointIndex = 7;
             var firstPointIndex = 6;
             var solver = new Solver((startIndex, endIndex) => TestData.CostMatrix[startIndex, endIndex],
-                                    TestData.CityNames,
+                                    TestData.CityNames.Length,
                                     new Solver.SolverConfiguration());
-            solver.SetStartNode(TestData.CityNames[firstPointIndex]);
-            solver.SetEndNode(TestData.CityNames[lastPointIndex]);
+            solver.SetStartNode(firstPointIndex);
+            solver.SetEndNode(lastPointIndex);
 
             //Act
-            var (cities, indexes) = solver.FindSolution();
+            var indexes = solver.FindSolution();
 
             //Assert
-            cities[0].Should().Be(TestData.CityNames[firstPointIndex]);
-            cities[^1].Should().Be(TestData.CityNames[lastPointIndex]);
-            cities.Distinct().Count().Should().Be(cities.Length);
-            cities.Distinct().Count().Should().Be(TestData.CityNames.Length);
+            indexes[0].Should().Be(firstPointIndex);
+            indexes[^1].Should().Be(lastPointIndex);
+            indexes.Distinct().Count().Should().Be(indexes.Length);
+            indexes.Distinct().Count().Should().Be(TestData.CityNames.Length);
         }
-
-
     }
 }
