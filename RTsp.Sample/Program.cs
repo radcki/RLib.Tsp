@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using Google.OrTools.ConstraintSolver;
 using Google.Protobuf.WellKnownTypes;
+using RTsp.Application.Enums;
 using Solver = RTsp.Application.Solver;
 
 namespace RTsp.Sample
@@ -32,11 +33,10 @@ namespace RTsp.Sample
                                     new Solver.SolverConfiguration()
                                     {
                                         EnableSolutionMutation = true,
-                                        FirstSolutionStrategy = Solver.eFirstSolutionStrategy.ConnectCheapestArcs
+                                        FirstSolutionStrategy = eFirstSolutionStrategy.ConnectCheapestArcs
                                     });
             solver.SetStartNode(nodeIds[0]);
             solver.SetEndNode(nodeIds[^1]);
-
 
             var (solution, solutionIndexes) = solver.FindSolution();
             sw.Stop();
