@@ -1,11 +1,7 @@
-using System;
-using System.Diagnostics;
-using System.Linq;
 using FluentAssertions;
-using RTsp.Application;
 using Xunit;
 
-namespace RTsp.UnitTests
+namespace RLib.Tsp.UnitTests
 {
     public class SolverToolsUnitTests
     {

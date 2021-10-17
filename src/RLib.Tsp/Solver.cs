@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using RTsp.Application.Enums;
+using RLib.Tsp.Enums;
 
-namespace RTsp.Application
+namespace RLib.Tsp
 {
     public class Solver
     {

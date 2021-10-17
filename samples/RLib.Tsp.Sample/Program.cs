@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using Google.OrTools.ConstraintSolver;
-using Google.Protobuf.WellKnownTypes;
-using RTsp.Application.Enums;
-using Solver = RTsp.Application.Solver;
+using RLib.Tsp.Enums;
 
-namespace RTsp.Sample
+namespace RLib.Tsp.Sample
 {
     class Program
     {

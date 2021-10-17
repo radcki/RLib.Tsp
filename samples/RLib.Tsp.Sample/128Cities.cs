@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RTsp.Sample
+﻿namespace RLib.Tsp.Sample
 {
     /// <summary>
     /// Source of data: https://people.sc.fsu.edu/~jburkardt/datasets/cities/cities.html

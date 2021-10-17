@@ -1,4 +1,4 @@
-﻿namespace RTsp.Application.Enums
+﻿namespace RLib.Tsp.Enums
 {
     public enum eFirstSolutionStrategy
     {
