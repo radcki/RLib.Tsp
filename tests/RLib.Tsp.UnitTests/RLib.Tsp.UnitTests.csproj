@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RTsp.Application\RTsp.Application.csproj" />
+    <ProjectReference Include="..\..\src\RLib.Tsp\RLib.Tsp.csproj" />
   </ItemGroup>
 
 </Project>
