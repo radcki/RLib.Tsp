@@ -3,7 +3,7 @@
     /// <summary>
     /// Source of data: https://people.sc.fsu.edu/~jburkardt/datasets/cities/cities.html
     /// </summary>
-    public static class _128Cities
+    public static class InputData
     {
         public static string[] Names = new[]
                                  {
