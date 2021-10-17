@@ -60,13 +60,18 @@ namespace RLib.Tsp
             CompareFullSolutionCost = true;
         }
 
-        private int[] GenerateInitialSolution() => Configuration.FirstSolutionStrategy switch
+        private int[] GenerateInitialSolution()
         {
-            eFirstSolutionStrategy.Random => new InitialSolutionGenerator.RandomOrder(_nodeIds.Length, _startNodeIndex, _endNodeIndex).Generate(),
-            eFirstSolutionStrategy.NearestNeighbor => new InitialSolutionGenerator.NearestNeighbor(_nodeIds.Length, _startNodeIndex, _endNodeIndex).Generate(GetArcCost),
-            eFirstSolutionStrategy.ConnectCheapestArcs => new InitialSolutionGenerator.GlobalCheapestArc(_nodeIds.Length, _startNodeIndex, _endNodeIndex).Generate(GetArcCost),
-            _ => throw new ArgumentOutOfRangeException()
-        };
+            switch (Configuration.FirstSolutionStrategy)
+            {
+                case eFirstSolutionStrategy.Random: return new InitialSolutionGenerator.RandomOrder(_nodeIds.Length, _startNodeIndex, _endNodeIndex).Generate();
+                case eFirstSolutionStrategy.NearestNeighbor: return new InitialSolutionGenerator.NearestNeighbor(_nodeIds.Length, _startNodeIndex, _endNodeIndex).Generate(GetArcCost);
+                case eFirstSolutionStrategy.ConnectCheapestArcs: return new InitialSolutionGenerator.GlobalCheapestArc(_nodeIds.Length, _startNodeIndex, _endNodeIndex).Generate(GetArcCost);
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
 
 
         private float NodeSwapCostChange(int[] solution, int nodeA, int nodeB)
