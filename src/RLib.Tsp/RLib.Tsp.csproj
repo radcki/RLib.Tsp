@@ -1,13 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFrameworks>netstandard2.1;netcoreapp3.1;net5.0</TargetFrameworks>
+    <Authors>Radosław Adamczewski</Authors>
+    <Version>0.0.1</Version>
+    <RepositoryType></RepositoryType>
+    <PackageTags>tsp,optimization</PackageTags>
+    <RepositoryUrl>https://github.com/radcki/RLib.Tsp</RepositoryUrl>
+    <Description>.NET solver for Traveling Salesman Problem using 2-Opt algorithm</Description>
+    <PackageProjectUrl>https://github.com/radcki/RLib.Tsp</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
-  
-  <!--<ItemGroup>
-    <Compile Include="InitialSolutionGenerator.*.cs">
-      <DependentUpon>InitialSolutionGenerator.cs</DependentUpon>
-    </Compile>
-  </ItemGroup>-->
+
+  <ItemGroup>
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.3.37">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
 </Project>
