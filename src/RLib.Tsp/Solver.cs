@@ -131,9 +131,10 @@ namespace RLib.Tsp
                     {
                         Array.Copy(localSolution, 0, solution, 0, solution.Length);
                         solutionCost = localSolutionCost;
+                        mutationCount = 0;
                     }
                 }
-                else if (Configuration.EnableSolutionMutation && mutationCount < Configuration.MaxMutations)
+                else if (Configuration.EnableSolutionMutation && mutationCount < Configuration.MaxSolutionMutations)
                 {
                     var swapI = rnd.Next(iStartIndex, jMaxIndex - 2);
                     var swapJ = rnd.Next(swapI, jMaxIndex);
@@ -160,14 +161,19 @@ namespace RLib.Tsp
         public class SolverConfiguration
         {
             public eFirstSolutionStrategy FirstSolutionStrategy { get; set; } = eFirstSolutionStrategy.NearestNeighbor;
+            public int MaxIterations { get; set; } = 5000;
 
             /// <summary>
             /// Make random node swap when no improvement is found in iteration to possibly escape local minimum.
             /// </summary>
             public bool EnableSolutionMutation { get; set; } = false;
 
-            public int MaxIterations { get; set; } = 5000;
-            public int MaxMutations { get; set; } = 100;
+            /// <summary>
+            /// Mutation counter is reset if better solution was found.
+            /// If after specified number of attempts no better solution is found, solution search is stopped.
+            /// Increasing this number can result in finding better solution but increases computation time.
+            /// </summary>
+            public int MaxSolutionMutations { get; set; } = 50;
         }
     }
 }

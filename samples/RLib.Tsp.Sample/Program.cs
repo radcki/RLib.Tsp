@@ -10,7 +10,7 @@ namespace RLib.Tsp.Sample
     {
         static void Main(string[] args)
         {
-            var costMatrix = _128Cities.CostMatrix;
+            var costMatrix = InputData.CostMatrix;
 
             var calculateSolutionCost = new Func<int[], float>((solution) =>
                                                                {
@@ -21,7 +21,7 @@ namespace RLib.Tsp.Sample
                                                                    }
                                                                    return cost;
                                                                });
-            var nodeIds = _128Cities.Names;
+            var nodeIds = InputData.Names;
 
             var sw = Stopwatch.StartNew();
             var solver = new Solver((startIndex, endIndex) => costMatrix[startIndex, endIndex],
