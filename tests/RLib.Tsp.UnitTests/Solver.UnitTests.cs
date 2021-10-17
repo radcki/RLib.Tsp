@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using FluentAssertions;
+using RLib.Tsp.Enums;
 using Xunit;
 
 namespace RLib.Tsp.UnitTests
@@ -13,6 +14,23 @@ namespace RLib.Tsp.UnitTests
             //Arrange
             var solver = new Solver((startIndex, endIndex) => TestData.CostMatrix[startIndex, endIndex], 
                                     TestData.CityNames);
+
+            //Act
+            var (cities, indexes) = solver.FindSolution();
+
+            //Assert
+            cities.Distinct().Count().Should().Be(TestData.CityNames.Length);
+        }
+        [Fact]
+
+        public void Solution_ShouldContainAllPoints_2()
+        {
+            //Arrange
+            var solver = new Solver((startIndex, endIndex) => TestData.CostMatrix[startIndex, endIndex],
+                                    TestData.CityNames, new Solver.SolverConfiguration()
+                                                        {
+                                                            FirstSolutionStrategy = eFirstSolutionStrategy.ConnectCheapestArcs
+                                                        });
 
             //Act
             var (cities, indexes) = solver.FindSolution();
