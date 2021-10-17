@@ -13,7 +13,7 @@ var solver = new Solver(arcCost, cityNames);
 var (solutionCities, solutionIndexes) = solver.FindSolution();
 ```
 
-By default during possible node swap evaluation, only cost of affected nodes is calculated. In specific applications it is possible that travel cost between points depends also on other route segments. To cover this usecase, solver can be configure to evaluate swaps using full solution cost calculation delegate (in most cases this will increase solution search execution time).
+By default during possible node swap evaluation, only cost of affected nodes is calculated. In specific applications it is possible that travel cost between points depends also on other route segments. To cover this usecase, solver can be configured to evaluate swaps using full solution cost calculation delegate (in most cases this will increase execution time).
 
 ```csharp
 var arcCost = new Func<int, int, float>((startIndex, endIndex) => costMatrix[startIndex, endIndex]);
