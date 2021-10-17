@@ -33,7 +33,7 @@ namespace RLib.Tsp
                     solution[^1] = _endNodeIndex.Value;
                 }
 
-                var expectedLeftover = 1 + (_startNodeIndex.HasValue ? 1 : 0) + (_endNodeIndex.HasValue ? 1 : 0) + (_length % 2 > 0 ? 1 : 0);
+                var expectedLeftover = 1 + (_startNodeIndex.HasValue ? 1 : 0) + (_endNodeIndex.HasValue ? 1 : 0) ;
                 var arcsToConnect = Enumerable.Range(0, _length).Select(x => new[] { x }).ToList();
 
                 while (arcsToConnect.Count > expectedLeftover)
